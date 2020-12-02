@@ -38,7 +38,6 @@ app.set('views', 'views');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method"));
-app.use(flash());
 
 //passport config
 app.set('trust proxy', 1);
@@ -49,6 +48,8 @@ app.use(session({
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+
+app.use(flash());
 
 app.use((req,res,next) => {
   if(!req.session){
@@ -69,8 +70,8 @@ passport.deserializeUser(User.deserializeUser());
 //call on every route
 app.use((req,res,next) => {
   res.locals.currentUser = req.user;
-  res.locals.error = req.flash("error");
-  res.locals.success = req.flash("success");
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
   next();
 });
 
