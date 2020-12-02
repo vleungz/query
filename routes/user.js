@@ -21,8 +21,7 @@ router.post("/register", catchAsync(async(req,res,next) => {
           res.redirect("/");
       })
   } catch(e) {
-      console.log(e.message);
-      req.flash('error', e.message);
+      req.flash('error', "Duplicated user's email address");
       res.redirect('register');
   }
 }));
@@ -39,8 +38,7 @@ router.post("/login", passport.authenticate("local",
         failureRedirect: "/login",
         failureFlash: true,
         successFlash: "Welcome back to Query!"
-    }), function(req,res){
-});
+    }));
 
 // logout route
 router.get("/logout",(req,res) => {

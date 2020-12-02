@@ -99,3 +99,18 @@
         text-align: left;
     }
 }
+
+.alert{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.alert-error{
+    background-color: #f6bcbc;
+}
+
+.alert-success{
+    background-color: #c6ecc6;
+}

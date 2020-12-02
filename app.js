@@ -8,7 +8,7 @@ const express = require('express'),
       MongoStore = require('connect-mongo')(session),
       flash = require("connect-flash"),
       passport = require("passport"),
-      LocalStrategy = require("passport-local"),
+      LocalStrategy = require("passport-local").Strategy,
       methodOverride = require("method-override"),
       User = require("./models/user"),
       Question = require("./models/question"),
@@ -64,6 +64,7 @@ passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField : 'password',
 }, User.authenticate()));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
