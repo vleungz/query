@@ -1,0 +1,101 @@
+<%- include("../partials/header") %>
+
+<section class="index">
+    <% if(currentUser){ %>
+        <div class="question-button">
+            <button type="button" onclick="askQuestion()">Ask Question</button>
+        </div>
+        <br>
+        <br>
+    <%}%>
+        <div class="flex-index">
+        <div class="col-25 space">
+            <ul>
+                <li><a href="#" class="toggle-space" id="algorithm" onclick="filterSelection('algorithm')">Algorithm</a></li>
+                <li><a href="#" class="toggle-space" id="machinelearning" onclick="filterSelection('machinelearning')">Machine Learning</a></li>
+                <li><a href="#" class="toggle-space" id="system" onclick="filterSelection('system')">System</a></li>
+                <li><a href="#" class="toggle-space" id="javascript" onclick="filterSelection('javascript')">Javascript</a></li>
+            </ul>
+        </div>
+        <div class="col-75 questions">
+            <% if(currentUser){ %>
+                <div class="ask-question">
+                    <form class ="ask" id="ask" action="/">
+                        <p><%= currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1) %></p>
+                        <label>
+                            <input type="text"
+                                   placeholder="What is your question?"
+                                   name="ask"
+                                   onfocus="askQuestion()">
+                        </label>
+                    </form>
+                </div>
+            <%}%>
+                <div class="sortDiv">
+                    <% questions.forEach((question) => { %>
+                    <section class="filterDiv <%=question.space%>"
+                             style="display: block;"
+                             data-weight="<%=question.up.length%>"
+                             data-event-date="<%=question.time%>">
+                        <div class="col-25" id="col-left">
+                            <% if(question.space === 'machinelearning'){ %>
+                            <p class="question-space">
+                                <%=question.space.charAt(0).toUpperCase() + question.space.slice(1,7) + ' '
+                                + question.space.charAt(7).toUpperCase() + question.space.slice(8) %></p>
+                            <%} else{ %>
+                            <p class="question-space">
+                                <%=question.space.charAt(0).toUpperCase() + question.space.slice(1) %></p>
+                            <%}%>
+                            <p class="question-name"><%=question.creator.name.charAt(0).toUpperCase() + question.creator.name.slice(1)%></p>
+                            <p class="question-time"><%=question.time %></p>
+                            <% if(currentUser && question.up.includes(currentUser._id) === false){ %>
+                                <form action ="/<%= question._id%>?_method=PUT" method="POST">
+                                    <button class="upvote-button" type="submit"><i class="fas fa-caret-up"></i>
+                                        Upvote (<%=question.up.length%>)</button>
+                                </form>
+                            <%} else{%>
+                                <form action ="/<%= question._id%>?_method=PUT" method="POST">
+                                    <button class="upvote-button" type="submit" style="color:green;"><i class="fas fa-caret-up"></i>
+                                        Upvoted (<%=question.up.length%>)</button>
+                                </form>
+                            <%}%>
+                        </div>
+                        <div class="col-75" id="col-right">
+                            <h4 class="question-title"><a href="/<%= question._id %>"><%=question.title %></a></h4>
+                            <div class="question-content">
+                                <p class="question-span"><%=question.content %></p>
+                            </div>
+                            <button class="answer-button" onclick="toggleAnswer('<%=question._id%>')"><i class="fas fa-pen"></i>
+                                Answer (<%=question.answers.length%>)</button>
+                            <div class="toggle-answer" id="<%=question._id%>" style="display: none;">
+                                <% question.answers.forEach((answer) => { %>
+                                <div class="index-answer">
+                                    <p>
+                                        <span class="username"><%=answer.author.name.charAt(0).toUpperCase() + answer.author.name.slice(1)%></span>
+                                        <span class="post-time">posted on <%=answer.time %></span>
+                                    </p>
+                                    <p class="answer-content"><%= answer.content %></p>
+                                </div>
+                                <% }) %>
+                                <% if(currentUser){ %>
+                                    <div class="index-answer">
+                                        <form class ="reply" action ="/<%= question._id %>/answer" method="POST">
+                                            <p class="username"><%= currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1) %></p>
+                                            <div class="index-form">
+                                                <textarea cols="100" class="answer-text" name="answer[content]" placeholder="Post your new answer" required></textarea><br>
+                                                <button class="index-submit" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                <%}%>
+                            </div>
+                        </div>
+                    </section>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<%- include("../partials/footer") %>

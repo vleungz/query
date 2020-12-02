@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/partials.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/forms.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/answer.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c6beeaed45.js" crossorigin="anonymous"></script>
+    <title>Query</title>
+</head>
+<body>
+    <div class="top-nav" id="nav">
+        <a href="/" class="dateSort">
+            <img class="logo" src="/images/query.png"></a>
+        <% if(typeof page !== 'undefined' && page === 'questions'){ %>
+            <a id="home" href="/" class="a dateSort active">Home</a>
+            <a href="#" class="a" id="hot">Hot</a>
+        <%}else{ %>
+            <a id="home" href="/" class="dateSort a">Home</a>
+            <a href="#" class="a">Hot</a>
+        <%}%>
+        <div class="search-container">
+            <input type="text"
+                   placeholder="Query"
+                   name="search"
+                   class="search"
+                   id="input"
+                   onkeyup="searchFunction()"
+                   onfocus="searchFocus()"
+                   onblur="searchBlur()">
+        </div>
+        <% if(!currentUser){ %>
+            <% if(typeof page !== 'undefined' && page === 'register'){ %>
+                <a class="nav-right a active" href="/register">Register</a>
+            <%}else{ %>
+                <a class="nav-right a" href="/register">Register</a>
+            <%}%>
+            <% if(typeof page !== 'undefined' && page === 'login'){ %>
+                 <a class="nav-right a active" href="/login">Login</a>
+            <%}else{ %>
+                 <a class="nav-right a" href="/login">Login</a>
+            <%}%>
+        <% } else{ %>
+            <a class="nav-right a" href="/logout">Logout</a>
+        <% } %>
+
+        <a href="javascript:void(0);" class="a icon"
+           onclick="toggleNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+

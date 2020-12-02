@@ -1,0 +1,48 @@
+<%- include("../partials/header") %>
+<div class="back">
+    <a href="/">back</a>
+</div>
+<div class="form">
+    <h1>Ask your question</h1>
+    <div class="form-container">
+        <form action="/" method="POST">
+            <div class="row">
+                <div class="col-25">
+                    <label for="title">Title</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" placeholder="How to learn Javascript?" name="title" id="title" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="space">Space</label>
+                </div>
+                <div class="col-75">
+                    <input type="radio" id="algorithm" name="space" value="algorithm">
+                    <label class="radio" for="algorithm">Algorithm</label><br>
+                    <input type="radio" id="machinelearning" name="space" value="machinelearning">
+                    <label class="radio" for="machinelearning">Machine Learning</label><br>
+                    <input type="radio" id="system" name="space" value="system">
+                    <label class="radio" for="system">System</label><br>
+                    <input type="radio" id="javascript" name="space" value="javascript">
+                    <label class="radio" for="javascript">Javascript</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="content">Content</label>
+                </div>
+                <div class="col-75">
+                    <textarea id="content" name="content" placeholder="Javascript..."></textarea>
+                </div>
+            </div>
+            <div class="row form-button">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<%- include("../partials/footer") %>

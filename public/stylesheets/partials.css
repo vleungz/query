@@ -1,0 +1,101 @@
+/* nav styles */
+.top-nav {
+    background-color: white;
+    overflow: hidden;
+    padding: 5px 20px;
+}
+
+.top-nav .nav-right{
+    float: right !important;
+}
+
+.logo{
+    float:left;
+    display: block;
+    width: 65px;
+    height: 65px;
+}
+
+.top-nav .a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 0 0 16px;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 8px 0;
+}
+
+.top-nav .a:hover {
+    color: #DB1E1E;
+}
+
+.top-nav .a.active {
+    color: #DB1E1E;
+    font-weight: 700;
+}
+
+.top-nav .search-container {
+    float: left;
+    margin: 15px 0 15px 120px;
+}
+
+.top-nav .search{
+    background-color: #f2f2f2;
+    border-radius: 9999px;
+    padding: 5px 10px;
+}
+
+.top-nav input[type=text] {
+    width: 20em;
+    background-color: #f2f2f2;
+    font-size: 17px;
+    border: none;
+}
+
+.top-nav input[type=text]:focus{
+    outline: none;
+}
+
+.top-nav .icon {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .top-nav .a {
+        display: none;
+    }
+    .top-nav .search-container {
+        margin: 15px 0 0 45px;
+    }
+    .top-nav input[type=text] {
+        width: 12em;
+    }
+    .top-nav a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .top-nav.responsive {position: relative;}
+    .top-nav.responsive .search-container{
+        position: absolute;
+        top: 5px;
+        left: 85px;
+    }
+    .top-nav.responsive a.icon {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+    }
+    .top-nav.responsive #home{
+        margin-top: 70px;
+    }
+    .top-nav.responsive a {
+        float: none !important;
+        display: block;
+        text-align: left;
+    }
+}

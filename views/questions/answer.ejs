@@ -1,0 +1,106 @@
+<%- include("../partials/header") %>
+<section class="detail">
+    <div class="back">
+        <a href="/">back</a>
+    </div>
+    <div class="question-detail" id="edit">
+        <% if(currentUser && question.up.includes(currentUser._id) === false){ %>
+            <form action ="/<%= question._id%>?_method=PUT" method="POST">
+                <button class="upvote" type="submit"><i class="fas fa-caret-up"></i>
+                    Upvote (<%=question.up.length%>)</button>
+            </form>
+        <%} else{%>
+            <form action ="/<%= question._id%>?_method=PUT" method="POST">
+                <button class="upvote" type="submit" style="color:green;"><i class="fas fa-caret-up"></i>
+                    Upvoted (<%=question.up.length%>)</button>
+            </form>
+        <%}%>
+        <%if(currentUser && question.creator.id.equals(currentUser._id)){%>
+            <div class="right">
+                <a class="edit-form" href="#">Edit</a>
+                <form class="delete-form" action= "/<%=question._id%>?_method=DELETE" method="POST">
+                    <button class="delete-question">Delete</button>
+                </form>
+            </div>
+        <%}%>
+        <% if(question.space === 'machinelearning'){ %>
+        <p>
+            <%=question.space.charAt(0).toUpperCase() + question.space.slice(1,7) + ' '
+            + question.space.charAt(7).toUpperCase() + question.space.slice(8) %></p>
+        <%} else{ %>
+        <p>
+            <%=question.space.charAt(0).toUpperCase() + question.space.slice(1) %></p>
+        <%}%>
+        <p>
+            <span class="username"><%=question.creator.name.charAt(0).toUpperCase() + question.creator.name.slice(1)%></span>
+            <span class="post-time">posted on <%=question.time %></span>
+        </p>
+        <h4><%=question.title %></h4>
+        <p><%=question.content %></p>
+    </div>
+    <div class="question-detail display-edit" id="update">
+        <form action ="/question/<%= question._id%>?_method=PUT" method="POST">
+            <div class="form-row">
+                <label for="edit-title">Title</label><br>
+                <input type="text" name="question[title]" class='input' id="edit-title" value="<%=question.title %>" required>
+            </div>
+            <div class="form-row">
+                <label for="space">Space</label><br>
+                <div class='input'>
+                    <input type="radio" id="edit-algorithm" name="question[space]" value="algorithm" <%= question.space === "algorithm" ? 'checked' : '' %> >
+                    <label class="radio" for="edit-algorithm">Algorithm</label>
+                    <input type="radio" id="edit-machinelearning" name="question[space]" value="machinelearning" <%= question.space === "machinelearning" ? 'checked' : '' %>>
+                    <label class="radio" for="edit-machinelearning">Machine Learning</label>
+                    <input type="radio" id="edit-system" name="question[space]" value="system" <%= question.space === "system" ? 'checked' : '' %>>
+                    <label class="radio" for="edit-system">System</label>
+                    <input type="radio" id="edit-javascript" name="question[space]" value="javascript" <%= question.space === "javascript" ? 'checked' : '' %>>
+                    <label class="radio" for="edit-javascript">Javascript</label>
+                </div>
+            </div>
+            <div>
+                <label for="edit-content">Content</label><br>
+                <textarea cols="120" class='input' id="edit-content" name="question[content]"><%=question.content %></textarea>
+            </div>
+            <div>
+                <button class="submit" type="submit">Submit</button>
+                <button class="submit" type="button" onClick="cancelUpdate()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</section>
+<section class="answers">
+    <% question.answers.forEach(function(answer){ %>
+        <div class="answer">
+            <div class="answer-top">
+                <span class="username"><%=answer.author.name.charAt(0).toUpperCase() + answer.author.name.slice(1)%></span>
+                <span class="post-time">posted on <%=answer.time %></span>
+                <%if(currentUser && answer.author.id.equals(currentUser._id)){%>
+                <form class="right" action="/<%=question._id%>/answer/<%=answer._id%>?_method=DELETE" method="POST">
+                    <button class="delete-question">Delete</button>
+                </form>
+                <%}%>
+            </div>
+            <p class="answer-content"><%= answer.content %></p>
+        </div>
+    <% }) %>
+    <% if(currentUser){ %>
+        <div class="reply-question">
+            <form class ="reply" id="reply" action ="/<%= question._id %>/answer" method="POST">
+                <p class="username" id="name"><%= currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1) %></p>
+                <label id="hide">
+                    <input type="text"
+                           placeholder="Post your answer here"
+                           name="reply"
+                           onfocus="replyQuestion()"><br>
+                </label>
+                <div class="display-answer answer-form">
+                    <textarea cols="120" id="answer" name="answer[content]" placeholder="My answer is..." required></textarea><br>
+                    <button class="submit" type="submit">Submit</button>
+                    <button class="submit" type="button" onClick="cancelAnswer()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    <%}%>
+</section>
+
+<%- include("../partials/footer") %>
