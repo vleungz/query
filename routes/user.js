@@ -18,7 +18,7 @@ router.post("/register", catchAsync(async(req,res,next) => {
       req.login(registeredUser, err => {
           if (err) return next(err);
           req.flash('success', 'Welcome to Query!');
-          res.redirect('/');
+          res.redirect("/");
       })
   } catch(e) {
       console.log(e.message);

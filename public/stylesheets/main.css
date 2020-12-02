@@ -36,6 +36,9 @@ body {
   #col-right{
     border: none !important;
   }
+  .flex-index{
+    margin: 20px;
+  }
 }
 
 .space ul{
