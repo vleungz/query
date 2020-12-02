@@ -47,7 +47,7 @@
                             <%}%>
                             <p class="question-name"><%=question.creator.name.charAt(0).toUpperCase() + question.creator.name.slice(1)%></p>
                             <p class="question-time"><%=question.time %></p>
-                            <% if(currentUser && question.up.includes(currentUser._id) === false){ %>
+                            <% if(!currentUser || question.up.includes(currentUser._id) === false){ %>
                                 <form action ="/<%= question._id%>?_method=PUT" method="POST">
                                     <button class="upvote-button" type="submit"><i class="fas fa-caret-up"></i>
                                         Upvote (<%=question.up.length%>)</button>

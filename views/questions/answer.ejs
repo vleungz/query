@@ -4,7 +4,7 @@
         <a href="/">back</a>
     </div>
     <div class="question-detail" id="edit">
-        <% if(currentUser && question.up.includes(currentUser._id) === false){ %>
+        <% if(!currentUser || question.up.includes(currentUser._id) === false){ %>
             <form action ="/<%= question._id%>?_method=PUT" method="POST">
                 <button class="upvote" type="submit"><i class="fas fa-caret-up"></i>
                     Upvote (<%=question.up.length%>)</button>
